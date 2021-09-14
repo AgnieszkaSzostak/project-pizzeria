@@ -56,8 +56,10 @@
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
+      console.log('thisProduct', thisProduct);
       thisProduct.renderInMenu();
       console.log('new Product:', thisProduct);
+      thisProduct.initAccordion();
     }
     renderInMenu(){
       // eslint-disable-next-line no-unused-vars
@@ -71,6 +73,23 @@
       const menuContainer = document.querySelector(select.containerOf.menu);
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
+    }
+    initAccordion() {
+
+      // eslint-disable-next-line no-unused-vars
+      const thisProduct = this;
+      /* find the clickable trigger (the element that should react to clicking) */
+      // eslint-disable-next-line no-unused-vars
+      const clickableTrigger = document.querySelectorAll(select.menuProduct.clickable);
+      console.log('clickableTrigger', clickableTrigger);
+      clickableTrigger.addEventListener('click', function(event){
+        event.preventDefault();
+        const activeProduct =  document.querySelector(classNames.menuProduct.wrapperActive);
+        if(activeProduct && activeProduct !== thisProduct.element) {
+          activeProduct.classList.remove('active');
+          thisProduct.element.classList.toggle('active');
+        }
+      });
     }
   }
   const app = {
