@@ -56,44 +56,35 @@
       const thisProduct = this;
       thisProduct.id = id;
       thisProduct.data = data;
-      console.log('thisProduct', thisProduct);
       thisProduct.renderInMenu();
-      console.log('new Product:', thisProduct);
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
     }
     renderInMenu(){
-      // eslint-disable-next-line no-unused-vars
       const thisProduct = this;
-
-      /* generate HTML based on template */
       const generatedHTML = templates.menuProduct(thisProduct.data);
-      /* create element using utils.createElementsFromHTML */
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);
-      /* find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
-      /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
     }
-    initAccordion() {
-
-      // eslint-disable-next-line no-unused-vars
+    getElements(){
       const thisProduct = this;
-      console.log('thisProduct.element', thisProduct.element);
-      /* find the clickable trigger (the element that should react to clicking) */
-      // eslint-disable-next-line no-unused-vars
-      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-      console.log('clickableTrigger', clickableTrigger);
-      /* START: add event listener to clickable trigger on event click */
-      clickableTrigger.addEventListener('click', function(event){
-        /* prevent default action for event */
+
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+    }
+    initAccordion() {
+      const thisProduct = this;
+      thisProduct.accordionTrigger.addEventListener('click', function(event){
         event.preventDefault();
-        /* find active product (product that has active class) */
         const activeProduct =  document.querySelector(select.all.menuProductsActive);
-        console.log('activeProduct', activeProduct);
-        /* if there is active product and it's not thisProduct.element, remove class active from it */
         if(activeProduct && activeProduct !== thisProduct.element) {
           activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
-          /* toggle active class on thisProduct.element */
           thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
         }
         else {
@@ -101,18 +92,38 @@
         }
       });
     }
+    initOrderForm(){
+      const thisProduct = this;
+      console.log('thisProduct in initOrderForm', thisProduct);
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+      
+      for(let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          thisProduct.processOrder();
+        });
+      }
+      
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    }
+    processOrder(){
+      const thisProduct = this;
+      console.log('thisProduct in processOrder', thisProduct);
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData', formData);
+    }
   }
   const app = {
     initMenu: function(){
       const thisApp = this;
-      console.log('thisApp.data:', thisApp.data);
-      
       for(let productData in thisApp.data.products){
         new Product(productData, thisApp.data.products[productData]);
-        console.log('productData:', productData);
-        console.log('thisApp.data.products[productData]', thisApp.data.products[productData]);
       }
-      console.log('thisApp.data.products:', thisApp.data.products);
     },
     
     initData: function(){
