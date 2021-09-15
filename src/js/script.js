@@ -78,16 +78,26 @@
 
       // eslint-disable-next-line no-unused-vars
       const thisProduct = this;
+      console.log('thisProduct.element', thisProduct.element);
       /* find the clickable trigger (the element that should react to clicking) */
       // eslint-disable-next-line no-unused-vars
-      const clickableTrigger = document.querySelectorAll(select.menuProduct.clickable);
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       console.log('clickableTrigger', clickableTrigger);
+      /* START: add event listener to clickable trigger on event click */
       clickableTrigger.addEventListener('click', function(event){
+        /* prevent default action for event */
         event.preventDefault();
-        const activeProduct =  document.querySelector(classNames.menuProduct.wrapperActive);
+        /* find active product (product that has active class) */
+        const activeProduct =  document.querySelector(select.all.menuProductsActive);
+        console.log('activeProduct', activeProduct);
+        /* if there is active product and it's not thisProduct.element, remove class active from it */
         if(activeProduct && activeProduct !== thisProduct.element) {
-          activeProduct.classList.remove('active');
-          thisProduct.element.classList.toggle('active');
+          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
+          /* toggle active class on thisProduct.element */
+          thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
+        }
+        else {
+          thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
         }
       });
     }
