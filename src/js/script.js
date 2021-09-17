@@ -78,6 +78,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      console.log('thisProduct.imageWrapper', thisProduct.imageWrapper);
     }
     initAccordion() {
       const thisProduct = this;
@@ -114,10 +115,6 @@
     processOrder(){
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
-      const imagesData = utils.serializeFormToObject(thisProduct.imageWrapper);
-      console.log('thisProduct.imageWrapper', thisProduct.imageWrapper);
-      console.log('imagesData', imagesData);
       //set price do default price 
       let price = thisProduct.data.price;
       //for every category (param)...
@@ -137,7 +134,15 @@
           } //if default option isn't checked - lower the price
           if(!formData[paramId].includes(optionId) && option.hasOwnProperty('default')){
             price = price - option['price'];
-          } 
+          }
+          if(formData[paramId].includes(optionId)) {
+            console.log('paramId', paramId);
+            console.log('optionId', optionId);
+            const ingridientImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+            console.log('ingridientImage', ingridientImage);
+            if(ingridientImage !== null)
+              ingridientImage.classList.add('active');
+          }    
         }
       }
       //update calculated price in the HTML
