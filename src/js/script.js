@@ -77,6 +77,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
     initAccordion() {
       const thisProduct = this;
@@ -94,7 +95,6 @@
     }
     initOrderForm(){
       const thisProduct = this;
-      console.log('thisProduct in initOrderForm', thisProduct);
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
         thisProduct.processOrder();
@@ -113,9 +113,35 @@
     }
     processOrder(){
       const thisProduct = this;
-      console.log('thisProduct in processOrder', thisProduct);
       const formData = utils.serializeFormToObject(thisProduct.form);
       console.log('formData', formData);
+      const imagesData = utils.serializeFormToObject(thisProduct.imageWrapper);
+      console.log('thisProduct.imageWrapper', thisProduct.imageWrapper);
+      console.log('imagesData', imagesData);
+      //set price do default price 
+      let price = thisProduct.data.price;
+      //for every category (param)...
+      for(let paramId in thisProduct.data.params) {
+        //determine param value, e.g. paramID = 'toppings', param = {label: 'Toppings', type: chechboxes'...}
+        const param = thisProduct.data.params[paramId];
+        //for every option in this category
+        for(let optionId in param.options) {
+          //determine option value, e.g. optionId = 'olives', option = {label: 'Olives', price: 2, default: true}
+          const option  = param.options[optionId];
+          // verify if option is checked 
+          console.log('formData.hasOwnProperty(paramId)', formData.hasOwnProperty(paramId));
+          //if checked option isn't default option - increase the price
+          if(formData[paramId].includes(optionId) && !option.hasOwnProperty('default')) {
+            price = price + option['price'];
+            
+          } //if default option isn't checked - lower the price
+          if(!formData[paramId].includes(optionId) && option.hasOwnProperty('default')){
+            price = price - option['price'];
+          } 
+        }
+      }
+      //update calculated price in the HTML
+      thisProduct.priceElem.innerHTML = price;
     }
   }
   const app = {
