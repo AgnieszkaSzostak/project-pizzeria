@@ -143,6 +143,12 @@
             if(ingridientImage !== null)
               ingridientImage.classList.add('active');
           }    
+          if(!formData[paramId].includes(optionId)) {
+            const ingridientImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+            console.log('ingridientImage', ingridientImage);
+            if(ingridientImage !== null)
+              ingridientImage.classList.remove('active');
+          }    
         }
       }
       //update calculated price in the HTML
