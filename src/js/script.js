@@ -141,13 +141,13 @@
             const ingridientImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
             console.log('ingridientImage', ingridientImage);
             if(ingridientImage !== null)
-              ingridientImage.classList.add('active');
+              ingridientImage.classList.add(classNames.menuProduct.imageVisible);
           }    
           if(!formData[paramId].includes(optionId)) {
             const ingridientImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
             console.log('ingridientImage', ingridientImage);
             if(ingridientImage !== null)
-              ingridientImage.classList.remove('active');
+              ingridientImage.classList.remove(classNames.menuProduct.imageVisible);
           }    
         }
       }
