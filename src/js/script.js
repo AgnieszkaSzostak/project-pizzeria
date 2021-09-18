@@ -62,6 +62,7 @@
       thisProduct.initOrderForm();
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
+      
     }
     renderInMenu(){
       const thisProduct = this;
@@ -155,24 +156,26 @@
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
       
+      
     }
   }
 
   class AmountWidget {
     constructor(element){
       const thisWidget = this;
-     
+      
       console.log('AmoutWidget', thisWidget);
       console.log('constructor arguments', element);
       thisWidget.getElements(element);
       thisWidget.setValue(thisWidget.input.value);
-      
+      thisWidget.initActions(element);
     }
     getElements(element){
       const thisWidget = this;
 
       thisWidget.element = element;
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      console.log('thisWidget.input', thisWidget.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
     }
@@ -182,17 +185,21 @@
       const newValue = parseInt(value);
 
       /* To do: Add validation */
-      if(newValue !== thisWidget && !isNaN(newValue)){ 
+      if(thisWidget !== newValue && !isNaN(newValue)){ 
         thisWidget.value = newValue;
       }
       thisWidget.input.value = thisWidget.value;
     }
     initActions(){
-      const thisWidget = this; 
+      const thisWidget = this;
+  
+      console.log('thisWidget!!!', thisWidget); 
       console.log('thisWidget.input.value', thisWidget.input.value);
-      thisWidget.input.addEventListener('change', thisWidget.setValue(thisWidget.input.value));
-      thisWidget.linkDecrease.addEventListener('click', function(event){ event.preventDefault();},  thisWidget.setValue(thisWidget.value - 1));
-      thisWidget.linkIncrease.addEventListener('click', function(event){ event.preventDefault();},  thisWidget.setValue(thisWidget.value + 1));
+      thisWidget.input.addEventListener('change', function(){thisWidget.setValue(thisWidget.input.value); });
+      thisWidget.linkDecrease.addEventListener('click', function(){ thisWidget.setValue(thisWidget.value - 1);
+        thisWidget.preventDefault();});
+      thisWidget.linkIncrease.addEventListener('click', function(){ thisWidget.setValue(thisWidget.value + 1);
+        thisWidget.preventDefault();});
 
     }
   }
