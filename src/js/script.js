@@ -60,6 +60,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     }
     renderInMenu(){
@@ -78,7 +79,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-      console.log('thisProduct.imageWrapper', thisProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
     initAccordion() {
       const thisProduct = this;
@@ -126,26 +127,21 @@
           //determine option value, e.g. optionId = 'olives', option = {label: 'Olives', price: 2, default: true}
           const option  = param.options[optionId];
           // verify if option is checked 
-          console.log('formData.hasOwnProperty(paramId)', formData.hasOwnProperty(paramId));
+          // console.log('formData.hasOwnProperty(paramId)', formData.hasOwnProperty(paramId));
           //if checked option isn't default option - increase the price
           if(formData[paramId].includes(optionId) && !option.hasOwnProperty('default')) {
             price = price + option['price'];
-            
           } //if default option isn't checked - lower the price
           if(!formData[paramId].includes(optionId) && option.hasOwnProperty('default')){
             price = price - option['price'];
           }
           if(formData[paramId].includes(optionId)) {
-            console.log('paramId', paramId);
-            console.log('optionId', optionId);
             const ingridientImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-            console.log('ingridientImage', ingridientImage);
-            if(ingridientImage !== null)
+            if(ingridientImage)
               ingridientImage.classList.add(classNames.menuProduct.imageVisible);
           }    
           if(!formData[paramId].includes(optionId)) {
             const ingridientImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-            console.log('ingridientImage', ingridientImage);
             if(ingridientImage !== null)
               ingridientImage.classList.remove(classNames.menuProduct.imageVisible);
           }    
@@ -154,7 +150,53 @@
       //update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
+    initAmountWidget(){
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      
+    }
   }
+
+  class AmountWidget {
+    constructor(element){
+      const thisWidget = this;
+     
+      console.log('AmoutWidget', thisWidget);
+      console.log('constructor arguments', element);
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
+      
+    }
+    getElements(element){
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+    setValue(value){
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      /* To do: Add validation */
+      if(newValue !== thisWidget && !isNaN(newValue)){ 
+        thisWidget.value = newValue;
+      }
+      thisWidget.input.value = thisWidget.value;
+    }
+    initActions(){
+      const thisWidget = this; 
+      console.log('thisWidget.input.value', thisWidget.input.value);
+      thisWidget.input.addEventListener('change', thisWidget.setValue(thisWidget.input.value));
+      thisWidget.linkDecrease.addEventListener('click', function(event){ event.preventDefault();},  thisWidget.setValue(thisWidget.value - 1));
+      thisWidget.linkIncrease.addEventListener('click', function(event){ event.preventDefault();},  thisWidget.setValue(thisWidget.value + 1));
+
+    }
+  }
+
   const app = {
     initMenu: function(){
       const thisApp = this;
@@ -175,7 +217,6 @@
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
-
       thisApp.initData();
       thisApp.initMenu();
     },
