@@ -2,7 +2,6 @@
 
 {
   'use strict';
-
   const select = {
     templateOf: {
       menuProduct: '#template-menu-product',
@@ -27,7 +26,7 @@
     },
     widgets: {
       amount: {
-        input: 'input.amount',
+        input: 'input.amount', 
         linkDecrease: 'a[href="#less"]',
         linkIncrease: 'a[href="#more"]',
       },
@@ -51,7 +50,7 @@
       remove: '[href="#remove"]',
     },
   };
-
+  
   const classNames = {
     menuProduct: {
       wrapperActive: 'active',
@@ -61,7 +60,7 @@
       wrapperActive: 'active',
     },
   };
-
+  
   const settings = {
     amountWidget: {
       defaultValue: 1,
@@ -72,7 +71,7 @@
       defaultDeliveryFee: 20,
     },
   };
-
+  
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
@@ -108,6 +107,7 @@
       thisProduct.dom.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.dom.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
       thisProduct.dom.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+    
     }
     initAccordion() {
       const thisProduct = this;
@@ -145,7 +145,6 @@
     processOrder(){
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.dom.form);
-      console.log('formData', formData);
       //set price do default price 
       let price = thisProduct.data.price;
       //for every category (param)...
@@ -203,11 +202,15 @@
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.dom.priceElem.innerHTML;
       productSummary.params = {};
+      productSummary.params = thisProduct.prepareCartProductParams();
+      console.log('productSummary', productSummary);
       return productSummary;
+
     } 
     prepareCartProductParams(){
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.dom.form);
+      console.log('formData in prepareCart', formData);
       const checkedParams = {};
       for(let paramId in thisProduct.data.params) {
         const param = thisProduct.data.params[paramId];
@@ -219,13 +222,13 @@
           const option  = param.options[optionId];
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           if(optionSelected){
-            checkedParams[paramId].options[option];
+            checkedParams[paramId].options[optionId] = option.label;
           }
         }
       }
+      console.log('checkedParams', checkedParams);
       return checkedParams;
-    }
-      
+    } 
   }
   
 
@@ -289,6 +292,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      thisCart.dom.productList = document.querySelector(select.containerOf.cart);
     }
     initActions(){
       const thisCart = this;
@@ -298,8 +302,10 @@
       });
     }
     add(menuProduct) {
-      // const thisCart = this;
-      console.log('adding product', menuProduct);
+      const thisCart = this;
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
     }
   }
   const app = {
