@@ -218,14 +218,16 @@
         for(let optionId in param.options) {
           const option  = param.options[optionId];
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
-          if(optionSelected)
-        }
-          
+          if(optionSelected){
+            checkedParams[paramId].options[option];
+          }
         }
       }
-      return checkedParams
+      return checkedParams;
     }
+      
   }
+  
 
   class AmountWidget {
     constructor(element){
