@@ -191,17 +191,19 @@
     }
     addToCart(){
       const thisProduct = this;
+      console.log('app', app);
       app.cart.add(thisProduct.prepareCartProduct());
     }
     prepareCartProduct() {
       const thisProduct = this;
-      const productSummary = {};
-      productSummary.name = thisProduct.data.name;
-      productSummary.id = thisProduct.id;
-      productSummary.value = thisProduct.amountWidget.value;
-      productSummary.priceSingle = thisProduct.priceSingle;
-      productSummary.price = thisProduct.dom.priceElem.innerHTML;
-      productSummary.params = {};
+      const productSummary = 
+      {
+        name: thisProduct.data.name,
+        id: thisProduct.id,
+        amount: thisProduct.amountWidget.value,
+        priceSingle: thisProduct.priceSingle,
+        price: thisProduct.dom.priceElem.innerHTML,
+      };
       productSummary.params = thisProduct.prepareCartProductParams();
       console.log('productSummary', productSummary);
       return productSummary;
@@ -312,6 +314,7 @@
   // class CartProduct {
   //   constructor(menuProduct, element){
   //     const thisCartProduct = this;
+
 
 
   //   }
