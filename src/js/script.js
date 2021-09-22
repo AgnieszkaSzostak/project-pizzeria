@@ -307,12 +307,12 @@
       console.log('totalNumber', totalNumber);
       let subtotalPrice = 0; //const?
       console.log('subtotalPrice', subtotalPrice);
-      for(thisCart.product of thisCart.products){ // ??
-        console.log('product', thisCart.product);
-        totalNumber = totalNumber + thisCart.product.amount.value;
-        subtotalPrice = subtotalPrice + thisCart.product.priceSingle * thisCart.product.amount.value;
-        console.log('thisCart.product.price', thisCart.product.price);
+      for(let product of thisCart.products){ // ??
+        totalNumber = totalNumber + product.amount.value;
+        subtotalPrice = subtotalPrice + product.priceSingle * product.amount.value;
+        console.log('thisCart.product.price', product.price);
         thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+        thisCart.dom.totalNumber.innerHTML = totalNumber;
       
       }
       console.log('totalNumber', totalNumber);
