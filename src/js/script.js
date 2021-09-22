@@ -279,6 +279,10 @@
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = document.querySelector(select.cart.productList); // 
+      thisCart.dom.deliveryFee = document.querySelector(select.cart.deliveryFee);
+      thisCart.dom.subtotalPrice = document.querySelector(select.cart.subtotalPrice);
+      thisCart.dom.totalPrice = document.querySelector(select.cart.totalPrice); 
+      thisCart.dom.totalNumber = document.querySelector(select.cart.totalNumber);
     }
     initActions(){
       const thisCart = this;
@@ -293,6 +297,39 @@
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       thisCart.dom.productList.appendChild(generatedDOM);
       thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
+      thisCart.update();
+    }
+    update() {
+      const thisCart = this;
+      const deliveryFee = settings.cart.defaultDeliveryFee;
+      console.log('deliveryFee', deliveryFee);
+      let totalNumber = 0; //const?
+      console.log('totalNumber', totalNumber);
+      let subtotalPrice = 0; //const?
+      console.log('subtotalPrice', subtotalPrice);
+      for(thisCart.product of thisCart.products){ // ??
+        console.log('product', thisCart.product);
+        totalNumber = totalNumber + thisCart.product.amount.value;
+        subtotalPrice = subtotalPrice + thisCart.product.priceSingle * thisCart.product.amount.value;
+        console.log('thisCart.product.price', thisCart.product.price);
+        thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+      
+      }
+      console.log('totalNumber', totalNumber);
+      console.log('subtotalPrice', subtotalPrice);
+     
+      if(totalNumber == 0)
+      {
+        thisCart.totalPrice == 0; 
+      }
+      else
+      {
+        thisCart.totalPrice = subtotalPrice + deliveryFee;
+        thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+        thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice;
+      }
+      
+      console.log('thisCart.totalPrice', thisCart.totalPrice);
     }
   }
   class CartProduct {
