@@ -262,7 +262,9 @@
     }
     announce(){
       const thisWidget = this;
-      const event = new Event('updated');
+      const event = new CustomEvent('updated', {
+        bubbles: true
+      });
       thisWidget.element.dispatchEvent(event);
     }
   }
@@ -290,6 +292,11 @@
       {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+      thisCart.dom.productList.addEventListener('updated', function(){
+        thisCart.update();
+      });
+      thisCart.dom.productList.addEventListener('remove', function(){ 
+        thisCart.remove;});
     }
     add(menuProduct) {
       const thisCart = this;
@@ -318,9 +325,12 @@
       console.log('totalNumber', totalNumber);
       console.log('subtotalPrice', subtotalPrice);
      
-      if(totalNumber == 0)
+      if(totalNumber === 0)
       {
-        thisCart.totalPrice == 0; 
+        thisCart.totalPrice = 0;
+        thisCart.dom.deliveryFee.innerHTML = 0;
+        thisCart.dom.totalPrice.forEach(element => element.innerHTML = 0);
+
       }
       else
       {
@@ -343,6 +353,7 @@
       thisCartProduct.params = menuProduct.params;
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
+      thisCartProduct.initActions();
     }
     getElements(element) {
       const thisCartProduct = this;
@@ -365,7 +376,28 @@
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
-    
+    remove() {
+      const thisCartProduct = this;
+
+      const event = new CustomEvent('remove', {
+        bubbles: true,
+        detail: {
+          cartProduct: thisCartProduct,
+        },
+      });
+      console.log('event.detail.cartProduct', event.detail.cartProduct);
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
+      console.log('wywołano metodę remove');
+    }
+    initActions(){
+      const thisCartProduct = this;
+      thisCartProduct.dom.edit.addEventListener('click', function(event){ 
+        event.preventDefault();});
+      thisCartProduct.dom.remove.addEventListener('click', function(event){ 
+        event.preventDefault();
+        thisCartProduct.remove();
+      });
+    }
   }
   const app = {
     initMenu: function(){
