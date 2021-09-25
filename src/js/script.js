@@ -307,8 +307,10 @@
         toRemove.remove();
 
         const indexOfRemoved = thisCart.products.indexOf(event.detail.cartProduct);
-
-        thisCart.products.splice(indexOfRemoved);
+        console.log('indexOfRemoved', indexOfRemoved);
+        console.log('thisCart.products', thisCart.products);
+        thisCart.products.splice(indexOfRemoved, 1);
+        console.log('thisCart.products', thisCart.products);
         thisCart.update();
       });
       thisCart.dom.form.addEventListener('submit', function(event){ 
@@ -420,8 +422,7 @@
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
       thisCartProduct.dom.amountWidget.addEventListener('updated', function()
       {
-        // thisCartProduct.amount = ?? 
-        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount.value;
+        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amountWidget.value;
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
