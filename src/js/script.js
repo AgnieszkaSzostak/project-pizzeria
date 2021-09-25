@@ -336,9 +336,11 @@
         thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
         thisCart.dom.totalNumber.innerHTML = totalNumber;
       }
-      if(totalNumber == 0)
+      if(thisCart.products.length ==0) 
       {
-        thisCart.totalPrice = 0;
+        thisCart.totalPrice = 0;  
+        thisCart.dom.totalNumber.innerHTML = 0; 
+        thisCart.dom.subtotalPrice.innerHTML = 0;
         thisCart.dom.deliveryFee.innerHTML = 0;
         thisCart.dom.totalPrice.forEach(element => element.innerHTML = 0);
       }
