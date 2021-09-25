@@ -307,7 +307,7 @@
         const indexOfRemoved = thisCart.products.indexOf(event.detail.cartProduct);
         console.log('indexOfRemoved', indexOfRemoved);
         console.log('thisCart.products', thisCart.products);
-        thisCart.products.splice(indexOfRemoved);
+        thisCart.products.splice(indexOfRemoved, 1);
         console.log('thisCart.products', thisCart.products);
         thisCart.update();
       
@@ -377,8 +377,7 @@
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
       thisCartProduct.dom.amountWidget.addEventListener('updated', function()
       {
-        // thisCartProduct.amount = ?? 
-        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount.value;
+        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amountWidget.value;
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
