@@ -113,7 +113,7 @@ class Product{
       bubbles: true,
       detail: {
         product: thisProduct,
-      },
+      }, 
     });
 
     thisProduct.element.dispatchEvent(event);
