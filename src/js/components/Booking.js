@@ -15,8 +15,8 @@ class Booking{
     const thisBooking = this;
     console.log('thisBooking', thisBooking);
     
-    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(new Date()); 
-    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(utils.addDays(utils.dateToStr(new Date()), settings.datePicker.maxDaysInFuture));
+    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.dateWidget.minDate); 
+    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.dateWidget.maxDate);
     
     const params = {
       bookings: [
@@ -44,7 +44,7 @@ class Booking{
       eventsRepeat:  settings.db.url + '/' + settings.db.event   
                                      + '?' + params.eventsRepeat.join('&'),
     };
-
+    
     fetch(urls.bookings)
       .then(function(bookingsResponse){
         return bookingsResponse.json();
@@ -52,7 +52,7 @@ class Booking{
       .then(function(bookings){
         console.log('bookings', bookings);
       });
-    console.log('getData urls', urls);
+    // console.log('getData urls', urls);
   }
   render(element){
     const thisBooking = this;
