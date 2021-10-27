@@ -37,7 +37,7 @@ class Booking{
     console.log('getData params', params);
 
     const  urls = {
-      bookings:       settings.db.url + '/' + settings.db.booking 
+      booking:       settings.db.url + '/' + settings.db.booking 
                                      + '?' + params.bookings.join('&'),
       eventsCurrent: settings.db.url + '/' + settings.db.event   
                                      + '?' + params.eventsCurrent.join('&'),
@@ -45,14 +45,14 @@ class Booking{
                                      + '?' + params.eventsRepeat.join('&'),
     };
     
-    fetch(urls.bookings)
+    fetch(urls.booking)
       .then(function(bookingsResponse){
         return bookingsResponse.json();
       })
       .then(function(bookings){
         console.log('bookings', bookings);
       });
-    // console.log('getData urls', urls);
+    console.log('getData urls', urls);
   }
   render(element){
     const thisBooking = this;
