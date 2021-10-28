@@ -156,7 +156,11 @@
         }
   
       }
-  
+      //class for selected table
+      &.selected{
+        border: yellow;
+      }
+
       &.booked {
         cursor: not-allowed;
         color: lighten($color-dark, 40%);
