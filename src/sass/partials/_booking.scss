@@ -158,7 +158,8 @@
       }
       //class for selected table
       &.selected{
-        border: yellow;
+          background: green;
+          opacity: 0.5;
       }
 
       &.booked {
