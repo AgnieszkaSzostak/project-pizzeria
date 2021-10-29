@@ -179,39 +179,49 @@ class Booking{
       
       const selectedTable = event.target;
       const enabledTable = document.querySelector('.selected');
-      
+      const tableId = selectedTable.getAttribute('data-table');
       console.log('selectedTable', selectedTable);
-      if(thisBooking.tablica.length === 0 
-        &&
-        selectedTable.classList.contains('table') 
-        && 
-        !selectedTable.classList.contains('booked')
-      ){
-        selectedTable.classList.toggle(classNames.table.selected);
-        const tableId = selectedTable.getAttribute('data-table');
-        console.log('tableId', tableId);
-        thisBooking.tablica.push(tableId);
-        console.log('thisBooking.tablica', thisBooking.tablica);
-      }
+      
       if (thisBooking.tablica.length === 1
         &&
         selectedTable.classList.contains('table')
         && 
         !selectedTable.classList.contains('booked')
+        && 
+        !selectedTable.classList.contains(classNames.table.selected)
+        
       ){
         console.log('thisBooking.tablica[0]', thisBooking.tablica[0]);  
         console.log('enabledTable', enabledTable);
         enabledTable.classList.remove(classNames.table.selected);
-        selectedTable.classList.add(classNames.table.selected);
         thisBooking.tablica.splice(0,1);
-        
-        const tableId = selectedTable.getAttribute('data-table');
+        selectedTable.classList.add(classNames.table.selected);
         thisBooking.tablica.push(tableId);
         console.log('thisBooking.tablica', thisBooking.tablica);
       }
-      
-      
-      // .classList.add(classNames.table.selected);
+      else if(
+        selectedTable.classList.contains('table') 
+        && 
+        !selectedTable.classList.contains('booked')
+        &&
+        !selectedTable.classList.contains(classNames.table.selected)
+      ){
+        selectedTable.classList.add(classNames.table.selected);
+        console.log('tableId', tableId);
+        thisBooking.tablica.push(tableId);
+        console.log('thisBooking.tablica.length', thisBooking.tablica.length);
+        console.log('thisBooking.tablica', thisBooking.tablica);
+      }
+      else if(
+        selectedTable.classList.contains('table') 
+        && 
+        !selectedTable.classList.contains('booked')
+        && 
+        selectedTable.classList.contains(classNames.table.selected)
+      ){
+        selectedTable.classList.remove(classNames.table.selected);
+        thisBooking.tablica.splice(0,1);
+      }
 
     });
   }
