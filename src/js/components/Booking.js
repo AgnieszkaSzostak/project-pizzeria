@@ -254,6 +254,18 @@ class Booking{
       address: thisBooking.dom.adressInput.placeholder,
     };
     console.log('payload', payload);
+    
+    thisBooking.starterCheckboxes = document.querySelectorAll('.checkbox__checkmark');
+    console.log('thisBooking.starterCheckboxes', thisBooking.starterCheckboxes);
+    
+    for (let checkbox of thisBooking.starterCheckboxes){
+      if(checkbox.checked){
+        payload.starters.push(checkbox.previousElementSibling.value);
+      }
+    }
+     
+      
+    
   }
 
 }

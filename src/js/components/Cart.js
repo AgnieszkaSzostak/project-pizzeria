@@ -103,7 +103,9 @@ class Cart {
       deliveryFee: thisCart.deliveryFee,
       products: []
     };
-    for(let prod of thisCart.products) {
+
+    
+    for(let prod of thisCart.products){
       payload.products.push(prod.getData());
     }
     const options = {
