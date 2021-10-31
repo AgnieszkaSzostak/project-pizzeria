@@ -233,7 +233,7 @@ class Booking{
       }
     });
 
-    thisBooking.dom.buttonSendBooking = document.querySelector('.order-confirmation .btn-secondary');
+    thisBooking.dom.buttonSendBooking = document.querySelector('.booking-form');
     console.log('thisBooking.dom.buttonSendBooking', thisBooking.dom.buttonSendBooking);
     thisBooking.dom.buttonSendBooking.addEventListener('submit', function(event){ 
       event.preventDefault();
@@ -248,26 +248,28 @@ class Booking{
     
     console.log('thisBooking.dateWidget', thisBooking.dom.adressInput.placeholder);
     // eslint-disable-next-line no-unused-vars
+
+
     const payload = {
       date: thisBooking.dateWidget.correctValue,
-      hour: utils.hourToNumber(thisBooking.hourWidget.correctValue), 
-      table: parseInt(thisBooking.enabledTable) || null,
+      hour: thisBooking.hourWidget.correctValue, 
+      table: parseInt(thisBooking.selectedTable.getAttribute('data-table')),
       duration: parseInt(thisBooking.hoursAmountWidget.correctValue),
       ppl: parseInt(thisBooking.peopleAmount.value),
       starters: [],
-      phone: thisBooking.dom.phoneInput.placeholder,
-      address: thisBooking.dom.adressInput.placeholder,
+      phone: thisBooking.dom.phoneInput.value,
+      address: thisBooking.dom.adressInput.value,
     };
     console.log('payload', payload);
     
-    thisBooking.starterCheckboxes = document.querySelectorAll('.checkbox__checkmark');
-    console.log('thisBooking.starterCheckboxes', thisBooking.starterCheckboxes);
+    // thisBooking.starterCheckboxes = document.querySelectorAll('.checkbox__checkmark');
+    // console.log('thisBooking.starterCheckboxes', thisBooking.starterCheckboxes);
     
-    for (let checkbox of thisBooking.starterCheckboxes){
-      if(checkbox.checked){
-        payload.starters.push(checkbox.previousElementSibling.value);
-      }
-    }
+    // for (let checkbox of thisBooking.starterCheckboxes){
+    //   if(checkbox.checked){
+    //     payload.starters.push(checkbox.previousElementSibling.value);
+    //   }
+    // }
 
     const options = {
       method: 'POST',
@@ -276,6 +278,8 @@ class Booking{
       },
       body: JSON.stringify(payload),
     };
+
+    console.log('options.body', options.body);
     
     fetch(url, options)
       .then(function(response){
