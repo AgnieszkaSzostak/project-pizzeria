@@ -11,7 +11,7 @@ class Booking{
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.initActions();
-    thisBooking.sendBooking();
+    
    
   }
   getData(){
@@ -231,8 +231,13 @@ class Booking{
         thisBooking.selectedTable.classList.remove(classNames.table.selected);
         thisBooking.selectedTableArray.splice(0,1);
       }
-    
+    });
 
+    thisBooking.dom.buttonSendBooking = document.querySelector('.order-confirmation .btn-secondary');
+    console.log('thisBooking.dom.buttonSendBooking', thisBooking.dom.buttonSendBooking);
+    thisBooking.dom.buttonSendBooking.addEventListener('submit', function(event){ 
+      event.preventDefault();
+      thisBooking.sendBooking();
     });
   }
   sendBooking(){
@@ -263,9 +268,21 @@ class Booking{
         payload.starters.push(checkbox.previousElementSibling.value);
       }
     }
-     
-      
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
     
+    fetch(url, options)
+      .then(function(response){
+        return response.json();
+      }).then(function(parsedResponse){
+        console.log('parsedResponse', parsedResponse);
+      });
   }
 
 }
