@@ -157,6 +157,8 @@ class Booking{
     thisBooking.dom.tablesWrapper = document.querySelector(select.containerOf.tables);
     thisBooking.peopleAmount = thisBooking.dom.peopleAmount.querySelector(select.widgets.amount.input);
     thisBooking.bookingHour = thisBooking.dom.hourWrapper.querySelector(select.widgets.hourPicker.input);
+    thisBooking.dom.adressInput = thisBooking.dom.wrapper.querySelector(select.cart.address);
+    thisBooking.dom.phoneInput = thisBooking.dom.wrapper.querySelector(select.cart.phone);
   }
   initWidgets(){
     const thisBooking = this;
@@ -239,16 +241,17 @@ class Booking{
     // eslint-disable-next-line no-unused-vars
     const url = settings.db.url + '/' + settings.db.booking;
     
+    console.log('thisBooking.dateWidget', thisBooking.dom.adressInput.placeholder);
     // eslint-disable-next-line no-unused-vars
     const payload = {
-      date: thisBooking.dom.dateWrapper.value,
-      hour: utils.hourToNumber(thisBooking.bookingHour.value), 
-      table: parseInt(thisBooking.selectedTable),
-      duration: parseInt(thisBooking.dom.hoursAmount.value),
+      date: thisBooking.dateWidget.correctValue,
+      hour: utils.hourToNumber(thisBooking.hourWidget.correctValue), 
+      table: parseInt(thisBooking.enabledTable) || null,
+      duration: parseInt(thisBooking.hoursAmountWidget.correctValue),
       ppl: parseInt(thisBooking.peopleAmount.value),
       starters: [],
-      phone: 543534,
-      address: 345345,
+      phone: thisBooking.dom.phoneInput.placeholder,
+      address: thisBooking.dom.adressInput.placeholder,
     };
     console.log('payload', payload);
   }
