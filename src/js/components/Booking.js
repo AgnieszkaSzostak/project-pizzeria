@@ -188,16 +188,17 @@ class Booking{
   initActions(){
     const thisBooking = this;
     
+    thisBooking.selectedTableArray = [];
     thisBooking.dom.tablesWrapper.addEventListener('click', function(event){
       event.preventDefault();
       thisBooking.selectedTable = event.target;
       
-      thisBooking.pickedTable == null;
       const tableId = thisBooking.selectedTable.getAttribute('data-table');
       const isItTable = thisBooking.selectedTable.classList.contains('table');
       const isTableBooked = thisBooking.selectedTable.classList.contains('booked');
       const isTableSelected = thisBooking.selectedTable.classList.contains(classNames.table.selected);
       const tableToVacate = document.querySelector('.selected');
+
 
       if(isItTable
         &&
@@ -205,22 +206,24 @@ class Booking{
       ){
         if(isTableSelected){
           thisBooking.selectedTable.classList.remove(classNames.table.selected);
-          thisBooking.pickedTable ==  null;
+          thisBooking.selectedTableArray.splice(0,1);
         } else {
-          if (thisBooking.pickedTable !==  null)
+          if (thisBooking.selectedTableArray.length === 1)
           {
             tableToVacate.classList.remove(classNames.table.selected);
-            thisBooking.pickedTable == null;
+            thisBooking.selectedTableArray.splice(0,1);
             thisBooking.selectedTable.classList.add(classNames.table.selected);
-            thisBooking.pickedTable = tableId;
+            thisBooking.selectedTableArray.push(tableId);
           } else {
             thisBooking.selectedTable.classList.add(classNames.table.selected);
-            thisBooking.pickedTable = tableId;
+            thisBooking.selectedTableArray.push(tableId);
           }
         }
       }
+
     });
 
+    
     thisBooking.dom.bookingForm.addEventListener('submit', function(event){ 
       event.preventDefault();
       thisBooking.sendBooking();
@@ -237,7 +240,7 @@ class Booking{
     const payload = {
       date: thisBooking.dateWidget.correctValue,
       hour: thisBooking.hourWidget.correctValue, 
-      table: thisBooking.pickedTable,
+      table: parseInt(thisBooking.selectedTable.getAttribute('data-table')),
       duration: parseInt(thisBooking.hoursAmountWidget.correctValue),
       ppl: parseInt(thisBooking.peopleAmount.value),
       starters: [],
@@ -259,6 +262,7 @@ class Booking{
       body: JSON.stringify(payload),
     };
 
+    
     fetch(url, options)
       .then(function(response){
         return response.json();
