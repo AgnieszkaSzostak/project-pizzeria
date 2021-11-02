@@ -159,6 +159,8 @@ class Booking{
     thisBooking.bookingHour = thisBooking.dom.hourWrapper.querySelector(select.widgets.hourPicker.input);
     thisBooking.dom.adressInput = thisBooking.dom.wrapper.querySelector(select.cart.address);
     thisBooking.dom.phoneInput = thisBooking.dom.wrapper.querySelector(select.cart.phone);
+    thisBooking.dom.starters = document.querySelectorAll('[name="starter"]');
+    
   }
   initWidgets(){
     const thisBooking = this;
@@ -233,12 +235,15 @@ class Booking{
       }
     });
 
-    thisBooking.dom.buttonSendBooking = document.querySelector('.booking-form');
-    console.log('thisBooking.dom.buttonSendBooking', thisBooking.dom.buttonSendBooking);
-    thisBooking.dom.buttonSendBooking.addEventListener('submit', function(event){ 
+    thisBooking.dom.bookingForm = document.querySelector('.booking-form');
+    console.log('thisBooking.dom.bookingForm', thisBooking.dom.bookingForm);
+    thisBooking.dom.bookingForm.addEventListener('submit', function(event){ 
       event.preventDefault();
       thisBooking.sendBooking();
     });
+
+    
+
   }
   sendBooking(){
     const thisBooking = this;
@@ -250,6 +255,7 @@ class Booking{
     // eslint-disable-next-line no-unused-vars
 
 
+    
     const payload = {
       date: thisBooking.dateWidget.correctValue,
       hour: thisBooking.hourWidget.correctValue, 
@@ -260,17 +266,15 @@ class Booking{
       phone: thisBooking.dom.phoneInput.value,
       address: thisBooking.dom.adressInput.value,
     };
+   
+    for(let starter of thisBooking.dom.starters){
+      if (starter.checked == true){
+        payload.starters.push(starter.value);
+      }
+    }
+  
+  
     console.log('payload', payload);
-    
-    // thisBooking.starterCheckboxes = document.querySelectorAll('.checkbox__checkmark');
-    // console.log('thisBooking.starterCheckboxes', thisBooking.starterCheckboxes);
-    
-    // for (let checkbox of thisBooking.starterCheckboxes){
-    //   if(checkbox.checked){
-    //     payload.starters.push(checkbox.previousElementSibling.value);
-    //   }
-    // }
-
     const options = {
       method: 'POST',
       headers: {
