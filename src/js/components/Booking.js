@@ -11,8 +11,6 @@ class Booking{
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.initActions();
-    
-   
   }
   getData(){
     const thisBooking = this;
@@ -96,8 +94,6 @@ class Booking{
 
     const startHour = utils.hourToNumber(hour);
       
-    
-
     for(let hourBlock = startHour; hourBlock < startHour + duration; hourBlock += 0.5){
       if(typeof thisBooking.booked[date][hourBlock] == 'undefined'){
         thisBooking.booked[date][hourBlock] = [];
@@ -128,7 +124,6 @@ class Booking{
       if(!isNaN(tableId)){
         tableId = parseInt(tableId);
       }
-
       if(
         !allAvailable
         && 
@@ -139,7 +134,6 @@ class Booking{
         table.classList.remove(classNames.booking.tableBooked);
       }
     }
-    
   }
   render(element){
     const thisBooking = this;
@@ -175,7 +169,6 @@ class Booking{
     thisBooking.dom.wrapper.addEventListener('updated', function(event){
       event.preventDefault();
       thisBooking.updateDOM();
-      console.log('thisBooking.dom.wrapper', thisBooking.dom.wrapper);
       
       if(thisBooking.pickedTableId !== null){
         thisBooking.selectedTable.classList.remove(classNames.table.selected);
@@ -240,7 +233,7 @@ class Booking{
     const payload = {
       date: thisBooking.dateWidget.correctValue,
       hour: thisBooking.hourWidget.correctValue, 
-      table: parseInt(thisBooking.pickedTable),
+      table: parseInt(thisBooking.pickedTableId),
       duration: parseInt(thisBooking.hoursAmountWidget.correctValue),
       ppl: parseInt(thisBooking.peopleAmount.value),
       starters: [],
