@@ -199,30 +199,28 @@ class Booking{
       const isTableSelected = thisBooking.selectedTable.classList.contains(classNames.table.selected);
       const tableToVacate = document.querySelector('.selected');
 
-
       if(isItTable
         &&
         !isTableBooked
       ){
         if(isTableSelected){
           thisBooking.selectedTable.classList.remove(classNames.table.selected);
-          thisBooking.selectedTableArray.splice(0,1);
+          thisBooking.pickedTable ==  null;
         } else {
-          if (thisBooking.selectedTableArray.length === 1){
+          if (thisBooking.pickedTable !==  null)
+          {
             tableToVacate.classList.remove(classNames.table.selected);
-            thisBooking.selectedTableArray.splice(0,1);
+            thisBooking.pickedTable == null;
             thisBooking.selectedTable.classList.add(classNames.table.selected);
-            thisBooking.selectedTableArray.push(tableId);
+            thisBooking.pickedTable = tableId;
           } else {
             thisBooking.selectedTable.classList.add(classNames.table.selected);
-            thisBooking.selectedTableArray.push(tableId);
+            thisBooking.pickedTable = tableId;
           }
         }
       }
-      
     });
 
-    
     thisBooking.dom.bookingForm.addEventListener('submit', function(event){ 
       event.preventDefault();
       thisBooking.sendBooking();
@@ -239,7 +237,7 @@ class Booking{
     const payload = {
       date: thisBooking.dateWidget.correctValue,
       hour: thisBooking.hourWidget.correctValue, 
-      table: parseInt(thisBooking.selectedTable.getAttribute('data-table')),
+      table: thisBooking.pickedTable,
       duration: parseInt(thisBooking.hoursAmountWidget.correctValue),
       ppl: parseInt(thisBooking.peopleAmount.value),
       starters: [],
@@ -261,7 +259,6 @@ class Booking{
       body: JSON.stringify(payload),
     };
 
-    
     fetch(url, options)
       .then(function(response){
         return response.json();
