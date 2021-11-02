@@ -188,11 +188,11 @@ class Booking{
   initActions(){
     const thisBooking = this;
     
-    thisBooking.selectedTableArray = [];
     thisBooking.dom.tablesWrapper.addEventListener('click', function(event){
       event.preventDefault();
       thisBooking.selectedTable = event.target;
       
+      thisBooking.pickedTable == null;
       const tableId = thisBooking.selectedTable.getAttribute('data-table');
       const isItTable = thisBooking.selectedTable.classList.contains('table');
       const isTableBooked = thisBooking.selectedTable.classList.contains('booked');
