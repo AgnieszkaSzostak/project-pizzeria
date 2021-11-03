@@ -21,6 +21,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
+          <a href="#home">Home</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
         </div>
@@ -62,6 +63,10 @@
   </header>
 
   <div id="pages">
+    <section id="home">
+      <div class="home-wrapper container">
+      </div>
+    </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -69,6 +74,27 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
+
+  <script id="template-home" type="text/x-handlebars-template">
+    <div class="image-wrapper">
+      <a href="#" class="link order" data-id="{{ id }}">
+        <!-- <img src="images/homePage/pizza-1.jpg" alt=""> -->
+      </a>
+      <a href="#" class="link book" data-id="{{ id }}">
+        <!-- <img src="images/homePage/pizza-2.jpg" alt=""> -->
+      </a>
+      <div class="opening-hours">
+        <h1>Opening hours:</h1>
+        <h2>tue-sun, 12pm -12am</h2> 
+      </div>
+
+    </div>
+   
+  
+  
+  
+  
+  </script>
 
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
