@@ -90,7 +90,6 @@ class Cart {
   }
   sendOrder() {
     const thisCart = this;
-    // eslint-disable-next-line no-unused-vars
     const url = settings.db.url + '/' + settings.db.orders;
     
     const payload =  
