@@ -49,6 +49,7 @@ h1 {
     }
     .order-title{
         position: absolute;
+        z-index: 1;
         top: 58%;
         left : 27%;
         pointer-events: none;
@@ -121,6 +122,38 @@ h1 {
 
 
 // carousel //
+
+.main-carousel{
+    margin: 60px 5px 10px; 
+  }
+  .carousel-cell {
+    width: 100%; /* full width */
+    height: 310px; /* height of carousel */
+    margin-right: 10px;}
+    .carousel-image { 
+      width: 290px;
+      height: 290px;
+      object-fit: cover;
+      padding: 30px 30px 30px 0;
+      float: left;
+    }
+    .description {
+        padding: 30px 30px 10px 0;
+        margin-right: 15px;
+
+        
+        h2{
+            text-transform: uppercase;
+            font-family: $font-header;
+            font-weight: 400;
+        }
+        p:first-of-type{
+            font-weight: 200;
+        }
+        :last-child{
+            font-style: italic;
+        }
+    }
 
 // gallery //
 .flex-box{
