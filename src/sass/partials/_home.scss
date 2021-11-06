@@ -8,28 +8,100 @@
     }
 }   
 
+// global
+
+h1 {
+    font-size: 25px;
+}
+
+//book, order, opening hours section //
+
+
 .image-wrapper {
     display: flex;
     flex-wrap: wrap;
     color: $color-light;
+    font-family: $font-header;
     text-transform: uppercase;
     text-align: center;
-
+    
     .link{
         flex: 40%;
         margin-left: 5px;
         margin-right: 5px;
         height: 150px;
         border-radius: 5px;
-        
+        color: $color-light;
+        text-decoration: none;
+        font-size: 22px;
+        padding: 55px;        
     }
     .order{
         background-image: url('../../images/homePage/pizza-1.jpg');
         background-size: cover;
+        
+
     }
     .book{
         background-image: url('../../images/homePage/pizza-2.jpg');
         background-size: cover;
+        background-position: center;
+    }
+    .order-title{
+        position: absolute;
+        top: 58%;
+        left : 27%;
+        pointer-events: none;
+        
+    }
+    .order:hover ~ .order-title, .book:hover ~ .booking-title{
+        animation: lift2 1s;
+        animation-fill-mode: both; 
+        transition-delay: 0.25s;
+        
+    }
+    .order-sub{
+        position: absolute;
+        text-transform: none;
+        top: 72%;
+        left : 25%;
+    }
+    .pop-up, .pop-up2{
+        visibility: hidden;
+        font-weight: light;
+        pointer-events: none;
+    }
+    
+    .order:hover ~ .pop-up, .book:hover ~ .pop-up2{
+        animation: lift 1.5s;
+        animation-fill-mode: both;  
+    }
+
+    .booking-title{
+        position: absolute;
+        top: 58%;
+        right : 27%;
+        pointer-events: none;
+    }
+
+    .booking-sub{
+        position: absolute;
+        text-transform: none;
+        top: 72%;
+        right : 25%;
+    }
+
+    @keyframes lift{
+        0%{}
+        85%{visibility: visible;}
+        100%{transform: translateY(-55px);
+            transition-duration: 0.5s all;
+            visibility: visible;}
+    }
+    @keyframes lift2{
+        0%{}
+        100%{transform: translateY(-20px);
+            transition-duration: 0.5s all;}
     }
     
     .opening-hours{
@@ -39,8 +111,24 @@
         margin-left: 5px;
         margin-right: 5px;
         margin-top: 10px;
-        border-radius: 5px;
-        
-       
+        border-radius: 3px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      
+    }
+    
+}
+
+
+// carousel //
+
+// gallery //
+.flex-box{
+    list-style-type: none;
+    display: flex;
+    flex-wrap: nowrap;
+    li{
+        flex: 30%;
     }
 }
+
