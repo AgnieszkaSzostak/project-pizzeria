@@ -148,11 +148,11 @@ class Booking{
     thisBooking.dom.hourWrapper = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
     thisBooking.dom.tablesWrapper = thisBooking.dom.wrapper.querySelector(select.containerOf.tables);
+    thisBooking.peopleAmount = thisBooking.dom.peopleAmount.querySelector(select.widgets.amount.input);
     thisBooking.dom.addressInput = thisBooking.dom.wrapper.querySelector(select.cart.address);
     thisBooking.dom.phoneInput = thisBooking.dom.wrapper.querySelector(select.cart.phone);
     thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll('[name="starter"]');
     thisBooking.dom.bookingForm = thisBooking.dom.wrapper.querySelector('.booking-form');
-    thisBooking.peopleAmount = thisBooking.dom.peopleAmount.querySelector(select.widgets.amount.input);
   }
   initWidgets(){
     const thisBooking = this;
@@ -199,7 +199,7 @@ class Booking{
           thisBooking.selectedTable.classList.remove(classNames.table.selected);
           thisBooking.pickedTableId = null;
         } else {
-          if (thisBooking.pickedTableId !== null)
+          if (thisBooking.pickedTableId != null)
           {
             tableToVacate.classList.remove(classNames.table.selected);
             thisBooking.selectedTable.classList.add(classNames.table.selected);
@@ -225,7 +225,12 @@ class Booking{
   }
   sendBooking(){
     const thisBooking = this;
+
+    // eslint-disable-next-line no-unused-vars
     const url = settings.db.url + '/' + settings.db.booking;
+    
+    // eslint-disable-next-line no-unused-vars
+   
     const payload = {
       date: thisBooking.dateWidget.correctValue,
       hour: thisBooking.hourWidget.correctValue, 
