@@ -27,10 +27,8 @@ class Home{
       contain: true,
       wrapAround: true,
       autoPlay: 3000,
-      
-
+      prevNextButtons: false
     });
-    
   }
 }
 

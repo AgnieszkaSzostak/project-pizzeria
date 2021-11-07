@@ -39,6 +39,7 @@ h1 {
     .order{
         background-image: url('../../images/homePage/pizza-1.jpg');
         background-size: cover;
+       
         
 
     }
@@ -46,12 +47,13 @@ h1 {
         background-image: url('../../images/homePage/pizza-2.jpg');
         background-size: cover;
         background-position: center;
+       
     }
     .order-title{
         position: absolute;
         z-index: 1;
-        top: 58%;
-        left : 27%;
+        top: 40%;
+        left : 30%;
         pointer-events: none;
         
     }
@@ -64,8 +66,8 @@ h1 {
     .order-sub{
         position: absolute;
         text-transform: none;
-        top: 72%;
-        left : 25%;
+        // top: 72%;
+        // left : 25%;
     }
     .pop-up, .pop-up2{
         visibility: hidden;
@@ -128,20 +130,21 @@ h1 {
   }
   .carousel-cell {
     width: 100%; /* full width */
-    height: 310px; /* height of carousel */
-    margin-right: 10px;}
+    height: 280px; /* height of carousel */
+    margin-right: 10px;
+
     .carousel-image { 
-      width: 290px;
-      height: 290px;
+      width: 200px;
+      height: 200px;
       object-fit: cover;
-      padding: 30px 30px 30px 0;
+    //padding: 30px 30px 30px 0;
+        margin-right: 30px;
       float: left;
     }
+  }
     .description {
-        padding: 30px 30px 10px 0;
-        margin-right: 15px;
-
-        
+        padding: 10px 30px 10px 0;
+    
         h2{
             text-transform: uppercase;
             font-family: $font-header;
@@ -159,9 +162,33 @@ h1 {
 .flex-box{
     list-style-type: none;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    margin-top: 70px;
+    padding: 0;
+   
     li{
         flex: 30%;
+        
+        img{
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            position: relative;
+            
+        }
+        
+    }
+    img::after{ // nie działa :) 
+        background-color: black;
+        opacity: 0.5;
+        height: 100%;
+        width: 100%;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        
     }
 }
 
