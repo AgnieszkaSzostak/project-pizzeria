@@ -35,7 +35,7 @@ class Home{
     const thisHome = this;
     
     thisHome.links = document.querySelectorAll('.link');
-
+  
     for(let link of thisHome.links){
       link.addEventListener('click', function(event){
         event.preventDefault;
