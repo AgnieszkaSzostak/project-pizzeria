@@ -8,14 +8,12 @@
     }
 }   
 
-// global
-
 h1 {
     font-size: 25px;
     font-family: $font-header;
 }
 
-//book, order, opening hours section //
+/* first section */
 
 
 .image-wrapper {
@@ -65,7 +63,6 @@ h1 {
         position: absolute;
         top: 50%;
         left : 25%;
-
     }
     
     .booking-sub{
@@ -110,52 +107,11 @@ h1 {
 }  
 
 
-
-
-    
-//     .order:hover ~ .pop-up, .book:hover ~ .pop-up2{
-//         animation: lift 1.5s;
-//         animation-fill-mode: both;  
-//     }
-
-//     .booking-title{
-//         position: absolute;
-//         top: 58%;
-//         right : 27%;
-//         pointer-events: none;
-//     }
-
-//     .booking-sub{
-//         position: absolute;
-//         text-transform: none;
-//         top: 72%;
-//         right : 25%;
-//     }
-
-  
-//     
-    
-//     .opening-hours{
-//         flex: 100%;
-//         height: 150px;
-//         background: $color-main;
-//         margin-left: 5px;
-//         margin-right: 5px;
-//         margin-top: 10px;
-//         border-radius: 3px;
-//         padding-top: 10px;
-//         padding-bottom: 10px;
-      
-//     }
-    
-// }
-
-
 // carousel //
 
 .main-carousel{
     margin: 60px 5px 10px; 
-  }
+ 
   .carousel-cell {
     width: 100%; /* full width */
     height: 280px; /* height of carousel */
@@ -165,7 +121,7 @@ h1 {
         width: 180px;
         height: 180px;
         object-fit: cover;
-        margin-left: 10px;
+        margin-left: 15px;
         margin-right: 30px;
         float: left;
         border-radius: 3px;
@@ -186,25 +142,29 @@ h1 {
             font-style: italic;
         }
     }
+}
 
-// gallery //
+/* gallery */
+
 .flex-box{
     display: flex;
     margin-top: 60px;
     flex-wrap: wrap;
+    justify-content: center;
+    
    
   
     .flexitem{
         position: relative;
         max-width: 180px;
         background-color: grey;
-        margin: 10px;
+        margin: 8px;
         flex: 33%;
+        
    
 
         img{
             background-color: grey;
-            
             width: 180px;
             height: 180px;
             object-fit: cover;
@@ -213,15 +173,15 @@ h1 {
         }
 
         img:hover{ 
-            opacity: 0.4;
+            opacity: 0.3;
         }    
 
         .icons{
             list-style-type: none;
             position: absolute;
-            bottom: 32%;
-            left: 18%;
-            font-size: 20px;
+            bottom: 26%;
+            left: 15%;
+            font-size: 25px;
             cursor: pointer;
         }
         
@@ -232,26 +192,21 @@ h1 {
         }
       
 
-        img:hover ~ .icons .fas, .icons:hover ~ .icons li{
+        img:hover ~ .icons li {
             visibility: visible;
         }
 
-        .fas:hover{
+        .icons li:hover{
             color: $color-main;
         }
-
-        // .icons li:hover{
-        //     visibility: visible;
-        // }
-        .fas:hover ~ img{
-            opacity: 0.4;
-        }
-        // .icons li:hover ~ img {
-        //     opacity: 0.4;
-        // }
-
-        
-
     }   
 }
-  
+
+/* Footer */
+
+footer {
+    a {
+        color: $color-main;
+        margin: 10px;
+    }
+}
