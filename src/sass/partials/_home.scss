@@ -29,6 +29,7 @@ h1 {
         flex: 45%;
         height: 150px;
         border-radius: 5px; 
+        position: relative;
     }
     
     div:nth-child(1){
@@ -54,73 +55,75 @@ h1 {
     .link{
         text-decoration: none;
         color: inherit;
+        
     }
     
     .order-title, .booking-title{
         margin: auto;
         width: 70%;
         padding: 60px 0;
+        // transform: translateY(0px);
+        // transition: transform 0.9s ease-in;
+        
     }
     
     .order-sub{
         position: absolute;
-        top: 50%;
-        left : 25%;
     }
     
     .booking-sub{
         position: absolute;
-        top: 50%;
-        right: 26%;
     }
     
-    .pop-up, .pop-up2{
+    .pop-up{
         visibility: hidden;
         pointer-events: none;
         text-transform: capitalize;
         font-family: $font-text;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        // transform: translateY(0px);
+        // transition: transform 0.9s ease-in;
     }
 
     .order:hover .pop-up, .book:hover .pop-up{
-        animation: lift 1.5s;
-        animation-fill-mode: forwards;  
+        animation: lift 0.9s;
+        animation-fill-mode: forwards;   
     }
-    
+
     @keyframes lift{
         0%{}
         85%{
             visibility: visible;
         }
         100%{
-            transform: translateY(-20px);
-            transition: 0.5s linear;
+            transform: translateY(-80px);
             visibility: visible;
         }
     }
-    
+
     .order:hover .order-title, .book:hover .booking-title{
-        animation: lift2 1s;
-        animation-fill-mode: both; 
-        transition-delay: 0.25s;
+        animation: lift2 1.2s;
+        animation-fill-mode: forwards;
     }
     
     @keyframes lift2{
         0%{}
         100%{
             transform: translateY(-20px);
-            transition-duration: 0.5s all;
         }
     }
 }  
 
-// carousel //
+// Carousel //
 
 .main-carousel{
     margin: 60px 5px 10px; 
  
   .carousel-cell {
-    width: 100%; /* full width */
-    height: 280px; /* height of carousel */
+    width: 100%;
+    height: 280px;
     margin-right: 10px;
 
     .carousel-image { 
@@ -142,16 +145,18 @@ h1 {
             font-family: $font-header;
             font-weight: 400;
         }
+
         p:first-of-type{
             font-weight: 200;
         }
+
         :last-child{
             font-style: italic;
         }
     }
 }
 
-/* gallery */
+/* Gallery */
 
 .flex-box{
     display: flex;
@@ -165,10 +170,9 @@ h1 {
         max-width: 180px;
         background-color: grey;
         margin: 8px;
-        
 
         img{
-            background-color: grey;
+         
             width: 180px;
             height: 180px;
             object-fit: cover;
@@ -182,33 +186,24 @@ h1 {
             bottom: 26%;
             left: 15%;
             font-size: 25px;
-            cursor: pointer;
-            background-color: transparent;
-        
-        }
-        
-        .icons li{
-            color: $color-light;
-            display: inline;
-            visibility: hidden;
             
+            li{
+                color: $color-light;
+                display: inline;
+                visibility: hidden;
+            }
+           
         }
-
-        .photo:hover {
-            opacity: 0.3;
-        }
-
-        .photo:hover ~ .icons i {
+        
+        .photo-wrapper:hover .icons i {
             visibility: visible;
+         
         }
 
-        .icons:hover i {
-            visibility: visible;
-        }
-       
-        .icons:hover ~ .photo {  // nie działa
+        .photo-wrapper:hover img {
             opacity: 0.3;
-        } 
+            transition: all 0.3s;
+        }
 
         .icons li:hover{
             color: $color-main;
