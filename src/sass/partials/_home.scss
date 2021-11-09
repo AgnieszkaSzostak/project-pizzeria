@@ -55,16 +55,14 @@ h1 {
     .link{
         text-decoration: none;
         color: inherit;
-        
     }
     
     .order-title, .booking-title{
         margin: auto;
         width: 70%;
         padding: 60px 0;
-        // transform: translateY(0px);
-        // transition: transform 0.9s ease-in;
-        
+        transform: translateY(0px);
+        transition: 1s all;
     }
     
     .order-sub{
@@ -83,8 +81,8 @@ h1 {
         width: 100%;
         text-align: center;
         left: 0;
-        // transform: translateY(0px);
-        // transition: transform 0.9s ease-in;
+        transform: translateY(0px);
+        transition: 1s all;
     }
 
     .order:hover .pop-up, .book:hover .pop-up{
