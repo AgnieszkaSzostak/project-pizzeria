@@ -37,10 +37,7 @@ class Cart {
       toRemove.remove();
 
       const indexOfRemoved = thisCart.products.indexOf(event.detail.cartProduct);
-      console.log('indexOfRemoved', indexOfRemoved);
-      console.log('thisCart.products', thisCart.products);
       thisCart.products.splice(indexOfRemoved, 1);
-      console.log('thisCart.products', thisCart.products);
       thisCart.update();
     });
     thisCart.dom.form.addEventListener('submit', function(event){ 

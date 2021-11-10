@@ -225,12 +225,8 @@ class Booking{
   }
   sendBooking(){
     const thisBooking = this;
-
-    
     const url = settings.db.url + '/' + settings.db.booking;
     
-   
-   
     const payload = {
       date: thisBooking.dateWidget.correctValue,
       hour: thisBooking.hourWidget.correctValue, 
