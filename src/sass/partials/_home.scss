@@ -61,8 +61,7 @@ h1 {
         margin: auto;
         width: 70%;
         padding: 60px 0;
-        transform: translateY(0px);
-        transition: 1s all;
+        transition: 0.9s all;
     }
     
     .order-sub{
@@ -81,36 +80,16 @@ h1 {
         width: 100%;
         text-align: center;
         left: 0;
-        transform: translateY(0px);
         transition: 1s all;
     }
 
     .order:hover .pop-up, .book:hover .pop-up{
-        animation: lift 0.9s;
-        animation-fill-mode: forwards;   
-    }
-
-    @keyframes lift{
-        0%{}
-        85%{
-            visibility: visible;
-        }
-        100%{
-            transform: translateY(-80px);
-            visibility: visible;
-        }
+        transform: translateY(-80px);
+        visibility: visible
     }
 
     .order:hover .order-title, .book:hover .booking-title{
-        animation: lift2 1.2s;
-        animation-fill-mode: forwards;
-    }
-    
-    @keyframes lift2{
-        0%{}
-        100%{
-            transform: translateY(-20px);
-        }
+        transform: translateY(-20px);
     }
 }  
 
