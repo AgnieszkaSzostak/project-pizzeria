@@ -225,12 +225,8 @@ class Booking{
   }
   sendBooking(){
     const thisBooking = this;
-
-    // eslint-disable-next-line no-unused-vars
     const url = settings.db.url + '/' + settings.db.booking;
     
-    // eslint-disable-next-line no-unused-vars
-   
     const payload = {
       date: thisBooking.dateWidget.correctValue,
       hour: thisBooking.hourWidget.correctValue, 

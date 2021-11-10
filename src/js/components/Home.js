@@ -3,7 +3,6 @@ import {templates, select, classNames} from '../settings.js';
 class Home{
   constructor(element){
     const thisHome = this;
-    console.log('thisHome', thisHome);
     thisHome.render(element);
     thisHome.initLinks();
     thisHome.initCarousel();
@@ -53,7 +52,6 @@ class Home{
     
     // eslint-disable-next-line no-undef
     thisHome.flickity = new Flickity('.main-carousel', {
-      // options
       cellAlign: 'left',
       contain: true,
       wrapAround: true,

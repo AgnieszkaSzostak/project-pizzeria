@@ -37,10 +37,7 @@ class Cart {
       toRemove.remove();
 
       const indexOfRemoved = thisCart.products.indexOf(event.detail.cartProduct);
-      console.log('indexOfRemoved', indexOfRemoved);
-      console.log('thisCart.products', thisCart.products);
       thisCart.products.splice(indexOfRemoved, 1);
-      console.log('thisCart.products', thisCart.products);
       thisCart.update();
     });
     thisCart.dom.form.addEventListener('submit', function(event){ 
@@ -90,9 +87,7 @@ class Cart {
   }
   sendOrder() {
     const thisCart = this;
-    // eslint-disable-next-line no-unused-vars
     const url = settings.db.url + '/' + settings.db.orders;
-    
     const payload =  
     {
       address: thisCart.dom.address.value,
